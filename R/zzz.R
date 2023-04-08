@@ -57,17 +57,19 @@ loadMklLibrary <- function(name) {
     }
 
     # Append MKL so files path to ~/Renviron in Linux
-    linuxLocalRenv <- paste0(normalizePath("~/"), "/.Renviron")
-    appendLibraryPath <- paste0("LD_LIBRARY_PATH=", pkgLibPath, ":${LD_LIBRARY_PATH}")
-    if (file.exists(linuxLocalRenv)) {
-      originalRenvFile <- readLines(linuxLocalRenv)
-      if (all(!grepl(pkgLibPath, originalRenvFile))) {
-        writeLines(paste(originalRenvFile, appendLibraryPath, sep="\n"), linuxLocalRenv)
+    if (!grepl("/tmp/Rtmp", pkgLibPath)) {
+      linuxLocalRenv <- paste0(normalizePath("~/"), "/.Renviron")
+      appendLibraryPath <- paste0("LD_LIBRARY_PATH=", pkgLibPath, ":${LD_LIBRARY_PATH}")
+      if (file.exists(linuxLocalRenv)) {
+        originalRenvFile <- paste(readLines(linuxLocalRenv), collapse = "\n")
+        if (!grepl(pkgLibPath, originalRenvFile)) {
+          writeLines(paste(originalRenvFile, appendLibraryPath, sep="\n"), linuxLocalRenv)
+          warning("Please restart R to reload LD_LIBRARY_PATH.")
+        }
+      } else {
+        writeLines(appendLibraryPath, linuxLocalRenv)
         warning("Please restart R to reload LD_LIBRARY_PATH.")
       }
-    } else {
-      writeLines(appendLibraryPath, linuxLocalRenv)
-      warning("Please restart R to reload LD_LIBRARY_PATH.")
     }
   } else {
     # Unable to load these files on Linux since the inter-dependency
