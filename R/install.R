@@ -120,9 +120,9 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
     bzFile <- file.path(tempDir, v[1])
     if (!file.exists(bzFile)) {
       cat(sprintf("Download %s from Anaconda repo...\n", v[1]))
-      download.file(sprintf(downloadFileBaseUrl, v[3], v[2], condaArch, v[1]), bzFile, quiet = TRUE)
+      download.file(sprintf(downloadFileBaseUrl, v[4], v[2], condaArch, v[1]), bzFile, quiet = TRUE)
     } else {
-      cat(paste(v[1], " exists, skipped!\n"))
+      cat(paste0(v[1], " exists, skipped!\n"))
     }
 
     destDir <- paste0(tempDir, "/", v[4])
@@ -133,7 +133,17 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
       f <- list.files(destDir, all.files = TRUE, full.names = TRUE, recursive = TRUE)
       Sys.chmod(f, (file.info(f)$mode | "664"))
     }
-    if (grepl("include", v[3])) {
+
+    # clean up before copying
+    if (dir.exists("inst/include/mkl")) {
+      unlink("inst/include/mkl", recursive=TRUE)
+    }
+    if (dir.exists("inst/lib")) {
+      unlink("inst/lib", recursive=TRUE)
+    }
+
+    # copy files
+    if (grepl("include", v[4])) {
       if (sysname == "Windows") {
         file.copy(paste0(destDir, "/Library/include/"), "inst/include", recursive = TRUE)
       } else {
@@ -146,6 +156,7 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
         file.copy(paste0(destDir, "/lib"), "inst", recursive = TRUE)
       }
     }
+    unlink(destDir, recursive = TRUE)
   })
 
   cat("Copy and rename include folder...\n")

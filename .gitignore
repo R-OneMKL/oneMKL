@@ -53,6 +53,7 @@ inst/lib/*.cat
 inst/lib/*.bc
 inst/lib/*.o
 inst/lib/*.spv
+inst/lib/*.cmake
 inst/include/mkl
 libs
 src-x64
