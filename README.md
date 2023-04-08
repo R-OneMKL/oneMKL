@@ -32,7 +32,7 @@ Unit: milliseconds
 # This results are run on R-4.2.3 (Windows 11) with AMD 2990WX.
 ```
 
-### Pre-requirement for UNIX system
+### Hacking for UNIX system
 
 Since MKL `.so` files are unable to load in R with `dyn.load`, you will need to modify `.Renviron` to add the path to `LD_LIBRARY_PATH` with the following script.
 
@@ -45,6 +45,13 @@ oneMKLPath=$(Rscript -e 'cat(paste0(sub("Rcpp/libs", "oneMKL/", system.file("lib
 tee -a ~/.Renviron << EOF
 LD_LIBRARY_PATH=${oneMKLPath}:\${LD_LIBRARY_PATH}
 EOF
+```
+
+### Get Ubuntu binary package
+
+```
+download.file("https://r-onemkl.github.io/drat/bin/linux/ubuntu/focal/oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz")
+install.packages("oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL)
 ```
 
 ### Known Issues
