@@ -17,6 +17,15 @@
 
 #' @importFrom utils download.file untar
 
+# helper function to extract strings
+extractSubstring <- function(str, pattern, general=FALSE) {
+  if (general) {
+    regmatches(str, gregexpr(pattern, str))[[1]]
+  } else {
+    regmatches(str, regexpr(pattern, str))
+  }
+}
+
 installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c()) {
   sysname <- Sys.info()[["sysname"]]
 
@@ -33,36 +42,45 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
     }
   }
 
-  # get the repodata.json (index file) from Anaconda by different system and arch
-  repodataBaseUrl <- "https://conda-static.anaconda.org/anaconda/%s/repodata.json"
+  # get the repodata.json.bz2 (index file) from Anaconda by different system and arch
+  repodataBz2BaseUrl <- "https://conda.anaconda.org/anaconda/%s/repodata.json.bz2"
   if (sysname == "Windows") {
-    condaArch <- paste0("win-", ifelse(rArch == "x64", 64, 32))
-    if (!dir.exists("inst/lib")) {
-      dir.create("inst/lib")
-    }
+    condaArch <- "win-64"
   } else if (sysname == "Linux") {
     condaArch <- "linux-64"
   } else {
     stop("Sorry, your system,", sysname, ", is unsupported!")
   }
 
-  # create temporary directory and download repodata.json
-  tempDir <- tempdir()
-  repodataJson <- file.path(tempDir, "repodata.json")
-  cat("Download repodata...\n")
-  download.file(sprintf(repodataBaseUrl, condaArch), repodataJson, quiet = TRUE)
+  if (!dir.exists("inst/lib")) {
+    dir.create("inst/lib")
+  }
 
-  # helper function to extract strings
-  extractSubstring <- function(str, pattern, general=FALSE) {
-    if (general) {
-      regmatches(str, gregexpr(pattern, str))[[1]]
-    } else {
-      regmatches(str, regexpr(pattern, str))
-    }
+  # download repodata.json.bz2
+  tempDir <- ifelse(
+    Sys.getenv("TMPDIR") != "",
+    Sys.getenv("TMPDIR"),
+    ifelse(
+      Sys.getenv("TMP") != "",
+      Sys.getenv("TMP"),
+      ifelse(
+        Sys.getenv("TEMP") != "",
+        Sys.getenv("TEMP"),
+        ifelse(sysname == "Windows", Sys.getenv("R_USER"), "/tmp")
+      )
+    )
+  )
+  repodataJsonBz2 <- file.path(tempDir, "repodata.json.bz2")
+  if (!file.exists(repodataJsonBz2) || (difftime(Sys.time(), file.info(repodataJsonBz2)$mtime, "days") >= 7)) {
+    cat("Download repodata...\n")
+    download.file(sprintf(repodataBz2BaseUrl, condaArch), repodataJsonBz2, quiet = TRUE)
+  } else {
+    cat("repodata exists, skipped!\n")
   }
 
   # extract packages from index
-  repodata <- paste0(readLines(repodataJson), collapse = "\n")
+  repodata <- paste0(readLines(zz <- bzfile(repodataJsonBz2)), collapse = "\n")
+  close(zz)
   mklPkg <- extractSubstring(repodata, sprintf('"mkl-%s[^"]+":\\s+\\{[^\\}]+\\}', mklVersion), TRUE)
   mklIncPkg <- extractSubstring(repodata, sprintf('"mkl-include-%s[^"]+":\\s+\\{[^\\}]+\\}', mklVersion), TRUE)
   intelOmpPkg <- extractSubstring(repodata, sprintf('"intel-openmp-%s[^"]+":\\s+\\{[^\\}]+\\}', mklVersion), TRUE)
@@ -70,28 +88,44 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
   # find the version string from index
   fnPattern <- '"[^:]+'
   versionPattern <- '"version":\\s+"[^"]+"'
+  buildNumberPattern <- '"build_number":\\s+\\d+'
   pkgMat <- do.call(rbind, lapply(c(mklPkg, mklIncPkg, intelOmpPkg), function(i) {
-    gsub('version|:|"| ', "", c(extractSubstring(i, fnPattern), extractSubstring(i, versionPattern)))
+    gsub('build_number|version|:|"| ', "",
+    c(
+      extractSubstring(i, fnPattern),
+      extractSubstring(i, versionPattern),
+      extractSubstring(i, buildNumberPattern)
+      )
+    )
   }))
 
-  # find the version
+  # find the files to download
   if (nrow(pkgMat) > 3) {
     versionCnts <- tapply(rep(1, nrow(pkgMat)), pkgMat[,2], sum)
-    downloadVersion <- max(names(versionCnts[versionCnts == 3]))
+    downloadVersion <- max(names(versionCnts[versionCnts >= 3]))
   } else {
-    downloadVersion <- pkgMat[1, 2]
+    downloadVersion <- max(pkgMat[, 2])
   }
 
   downloadFns <- pkgMat[pkgMat[,2] == downloadVersion, ]
   downloadFns <- cbind(downloadFns, gsub("-[0-9\\.]+-[^\\.]+.tar.bz2", "", downloadFns[, 1]))
+  if (nrow(downloadFns) > 3) {
+    filterFns <- tapply(downloadFns[, 1], downloadFns[,4], max)
+    downloadFns <- downloadFns[downloadFns[,1] %in% filterFns, ]
+  }
 
   # download packages from Anaconda, un-tar and move to inst/
   downloadFileBaseUrl <- "https://anaconda.org/anaconda/%s/%s/download/%s/%s"
   apply(downloadFns, 1, function(v){
-    bzFile <- file.path(tempDir, paste0(v[3], ".tar.bz2"))
-    cat(sprintf("Download %s from Anaconda repo...\n", v[1]))
-    download.file(sprintf(downloadFileBaseUrl, v[3], v[2], condaArch, v[1]), bzFile, quiet = TRUE)
-    destDir <- paste0(tempDir, "/", v[3])
+    bzFile <- file.path(tempDir, v[1])
+    if (!file.exists(bzFile)) {
+      cat(sprintf("Download %s from Anaconda repo...\n", v[1]))
+      download.file(sprintf(downloadFileBaseUrl, v[3], v[2], condaArch, v[1]), bzFile, quiet = TRUE)
+    } else {
+      cat(paste(v[1], " exists, skipped!\n"))
+    }
+
+    destDir <- paste0(tempDir, "/", v[4])
     cat(sprintf("Untar %s and copy...\n", v[1]))
     untar(bzFile, exdir = destDir)
     if (sysname != "Windows") {
@@ -126,5 +160,5 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
     file.rename("inst/lib/bin", libDir)
   }
 
-  cat("Intel MKL is downloaded successfully!\n")
+  cat("Intel MKL is downloaded and untar from Anaconda successfully!\n")
 }
