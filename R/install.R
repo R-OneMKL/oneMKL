@@ -110,6 +110,15 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
     downloadFns <- downloadFns[downloadFns[,1] %in% filterFns, ]
   }
 
+  # clean up before copying
+  if (dir.exists("inst/include/mkl")) {
+    unlink("inst/include/mkl/", recursive=TRUE)
+  }
+  if (dir.exists("inst/lib")) {
+    unlink("inst/lib/", recursive=TRUE)
+    dir.create("inst/lib")
+  }
+
   # download packages from Anaconda, un-tar and move to inst/
   downloadFileBaseUrl <- "https://anaconda.org/anaconda/%s/%s/download/%s/%s"
   apply(downloadFns, 1, function(v){
@@ -128,15 +137,6 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
       Sys.chmod(list.dirs(destDir), "777")
       f <- list.files(destDir, all.files = TRUE, full.names = TRUE, recursive = TRUE)
       Sys.chmod(f, (file.info(f)$mode | "664"))
-    }
-
-    # clean up before copying
-    if (dir.exists("inst/include/mkl")) {
-      unlink("inst/include/mkl/", recursive=TRUE)
-    }
-    if (dir.exists("inst/lib")) {
-      unlink("inst/lib/", recursive=TRUE)
-      dir.create("inst/lib")
     }
 
     # copy files
