@@ -116,8 +116,8 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
   }
   if (dir.exists("inst/lib")) {
     unlink("inst/lib/", recursive=TRUE)
-    dir.create("inst/lib")
   }
+  dir.create("inst/lib")
 
   # download packages from Anaconda, un-tar and move to inst/
   downloadFileBaseUrl <- "https://anaconda.org/anaconda/%s/%s/download/%s/%s"
