@@ -50,8 +50,9 @@ EOF
 ### Get Ubuntu binary package
 
 ```
-download.file("https://r-onemkl.github.io/drat/bin/linux/ubuntu/focal/oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz")
-install.packages("oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL)
+filename <- "oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz"
+download.file(paste0("https://r-onemkl.github.io/drat/bin/linux/ubuntu/focal/", filename), filename)
+install.packages(filename, repos = NULL)
 ```
 
 ### Known Issues
