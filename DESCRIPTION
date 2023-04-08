@@ -11,7 +11,8 @@ Authors@R: c(
     person(given = "Chia-Wei",
            family = "Kuo",
            email = "phxiranter@gmail.com",
-           role = c("aut")),
+           role = c("aut"),
+           comment = c(ORCID = '0000-0002-6096-5184')),
     person(given = "Ching-Chuan",
            family = "Chen",
            role = c("aut", "cre"),
@@ -20,7 +21,7 @@ Authors@R: c(
     )
 Author: 
   Pei-Shan Yen [aut] (<https://orcid.org/0000-0001-7386-0552>), 
-  Chia-Wei Kuo [aut], 
+  Chia-Wei Kuo [aut] (<https://orcid.org/0000-0002-6096-5184>), 
   Ching-Chuan Chen [aut, cre] (<https://orcid.org/0009-0007-8273-3206>)
 Maintainer: Ching-Chuan Chen <zw12356@gmail.com>
 Description: The `oneMKL` package aims to provide header files and dynamic library files to R for usage.
