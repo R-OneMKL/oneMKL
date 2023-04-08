@@ -1,0 +1,5 @@
+## `oneMKL` configure.win
+## Copyright (c) 2013-2022, Ching-Chuan Chen
+
+echo "Run configure.win..."
+"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" --vanilla -e 'source("R/install.R"); installMKL("2022")'

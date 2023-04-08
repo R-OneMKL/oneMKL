@@ -1,0 +1,36 @@
+Package: oneMKL
+Type: Package
+Title: Link MKL Library with R
+Version: 0.1.2022
+Authors@R: c(
+    person(given = "Pei-Shan",
+           family = "Yen", 
+           email = "peishan0824@gmail.com",
+           role = c("aut"), 
+           comment = c(ORCID = '0000-0001-7386-0552')),
+    person(given = "Chia-Wei",
+           family = "Kuo",
+           email = "phxiranter@gmail.com",
+           role = c("aut")),
+    person(given = "Ching-Chuan",
+           family = "Chen",
+           role = c("aut", "cre"),
+           email = "zw12356@gmail.com",
+           comment = c(ORCID = '0009-0007-8273-3206'))
+    )
+Author: 
+  Pei-Shan Yen [aut] (<https://orcid.org/0000-0001-7386-0552>), 
+  Chia-Wei Kuo [aut], 
+  Ching-Chuan Chen [aut, cre] (<https://orcid.org/0009-0007-8273-3206>)
+Maintainer: Ching-Chuan Chen <zw12356@gmail.com>
+Description: The `oneMKL` package aims to provide header files and dynamic library files to R for usage.
+  We imported files from packages on Anaconda,  `mkl`, `mkl-include` and `intel-openmp`.
+  `oneMKL` supports windows and Linux only because the availablity of Anaconda `mkl` package. 
+Depends: R (>= 4.2.0)
+Imports: utils, Rcpp (>= 1.0.0), roxygen2, pkgKitten (>= 0.1.2)
+Suggests: RUnit, RcppArmadillo
+License: GPL-3
+URL: https://github.com/ChingChuan-Chen/R-OneMKL
+BugReports: https://github.com/ChingChuan-Chen/R-OneMKL/issues
+Encoding: UTF-8
+RoxygenNote: 7.2.3
