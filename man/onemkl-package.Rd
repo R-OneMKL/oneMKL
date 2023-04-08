@@ -5,11 +5,7 @@
 \alias{onemkl-package}
 \title{`oneMKL` Package}
 \description{
-The `oneMKL` package aims to empower R with Intel MKL like Microsoft R Open (MRO)
-by leveraging the Anaconda packages, `mkl`, `mkl-include` and `intel-openmp`.
-`oneMKL` aims to act like a plug-in for R users and support dynamic linkage for Rcpp users.
+The `oneMKL` package aims to provide header files and dynamic library files to R for usage.
+We imported files from packages on Anaconda,  `mkl`, `mkl-include` and `intel-openmp`.
 `oneMKL` supports windows and Linux only because the availablity of Anaconda `mkl` package.
-Besides, `oneMKL` provides the ability to use Intel MKL in `Rcpp`,
-so you can leverage MKL functions widely in `mkl_blas.h`, `mkl_cblas.h`, `mkl_spblas.h`,
-`mkl_lapack.h` and `mkl_lapacke.h`.
 }

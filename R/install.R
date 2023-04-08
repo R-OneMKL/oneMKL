@@ -91,10 +91,10 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
   buildNumberPattern <- '"build_number":\\s+\\d+'
   pkgMat <- do.call(rbind, lapply(c(mklPkg, mklIncPkg, intelOmpPkg), function(i) {
     gsub('build_number|version|:|"| ', "",
-    c(
-      extractSubstring(i, fnPattern),
-      extractSubstring(i, versionPattern),
-      extractSubstring(i, buildNumberPattern)
+      c(
+        extractSubstring(i, fnPattern),
+        extractSubstring(i, versionPattern),
+        extractSubstring(i, buildNumberPattern)
       )
     )
   }))
