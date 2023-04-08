@@ -52,10 +52,6 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
     stop("Sorry, your system,", sysname, ", is unsupported!")
   }
 
-  if (!dir.exists("inst/lib")) {
-    dir.create("inst/lib")
-  }
-
   # download repodata.json.bz2
   tempDir <- ifelse(
     Sys.getenv("TMPDIR") != "",
@@ -136,10 +132,11 @@ installMKL <- function(mklVersion, rArch = .Platform$r_arch, downloadedRArch = c
 
     # clean up before copying
     if (dir.exists("inst/include/mkl")) {
-      unlink("inst/include/mkl", recursive=TRUE)
+      unlink("inst/include/mkl/", recursive=TRUE)
     }
     if (dir.exists("inst/lib")) {
-      unlink("inst/lib", recursive=TRUE)
+      unlink("inst/lib/", recursive=TRUE)
+      dir.create("inst/lib")
     }
 
     # copy files
