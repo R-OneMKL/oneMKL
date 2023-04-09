@@ -15,7 +15,7 @@ To get this package from github:
 
 ```r
 install.packages('remotes')
-remotes::install_github("ChingChuan-Chen/R-oneMKL")
+remotes::install_github("R-OneMKL/R-oneMKL")
 ```
 
 ### Speed-Up Performance for the Matrix Multiplication
@@ -59,6 +59,7 @@ install.packages(filename, repos = NULL)
 
 1. `solve` in vanilla R will be broken for solving inverse matrices (large size) after loading MKL in UNIX system.
    MKL uses INT64 ipiv in `dgesv`, but R uses INT32. Hence, it causes the issue.
+   This issue could be reolved by `library(oneMKLUtil)`, we replaced `base::solve` with `fMatSolve` by employing `rlang` to avoid the incorrect results.
 
 ### License
 
