@@ -78,3 +78,23 @@ loadMklLibrary <- function(name) {
     .mklIntelLp64DllInfo   <<- loadMklLibrary("mkl_intel_lp64")
   }
 }
+
+.onUnLoad <- function(libpath) {
+  if (Sys.info()[["sysname"]] == "Windows") {
+    if (!is.null(.mklIntelLp64DllInfo))
+      dyn.unload(.mklIntelLp64DllInfo[["path"]])
+
+    if (!is.null(.mklIntelThreadDllInfo))
+      dyn.unload(.mklIntelThreadDllInfo[["path"]])
+
+    if (!is.null(.mklCoreDllInfo))
+      dyn.unload(.mklCoreDllInfo[["path"]])
+  }
+
+  if (!is.null(.mklRtDllInfo))
+    dyn.unload(.mklRtDllInfo[["path"]])
+
+  if (!is.null(.iomp5DllInfo))
+    dyn.unload(.iomp5DllInfo[["path"]])
+}
+
