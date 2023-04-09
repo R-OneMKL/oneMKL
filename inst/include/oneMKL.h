@@ -33,6 +33,8 @@ typedef std::complex<float> MKL_Complex8;
 #include <mkl.h>
 #include <mkl_types.h>
 #define ARMA_USE_MKL_TYPES
+#define ARMA_BLAS_NOEXCEPT
+#define ARMA_LAPACK_NOEXCEPT
 #define ARMA_DONT_USE_FORTRAN_HIDDEN_ARGS
 
 #endif
