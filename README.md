@@ -14,7 +14,12 @@ Also, note that this package does not support Mac because Intel MKL does not sup
 You can install this package through our `drat` repository:
 
 ```r
-install.packages(c("oneMKL", "oneMKLUtil"), repos = "https://r-onemkl.github.io/drat/")
+# for windows 
+install.packages(c("oneMKL"), repos="https://R-OneMKL.github.io/drat", type="source")
+install.packages(c("oneMKLUtil"), repos="https://R-OneMKL.github.io/drat")
+
+# for Linux
+install.packages(c("oneMKL", "oneMKLUtil"), repos="https://R-OneMKL.github.io/drat")
 ```
 
 Or, to get this package from github:
