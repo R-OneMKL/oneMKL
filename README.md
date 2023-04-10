@@ -11,11 +11,18 @@ To build the package from source, Windows users will need to have [Rtools](http:
 Because the availability of Anaconda `mkl` package, we only support Windows and Linux.
 Also, note that this package does not support Mac because Intel MKL does not support Mac M1/M2 CPUs.
 
-To get this package from github:
+You can install this package through our `drat` repository:
 
 ```r
-install.packages('remotes')
-remotes::install_github("R-OneMKL/R-oneMKL")
+install.packages(c("oneMKL", "oneMKLUtil"), repos = "https://r-onemkl.github.io/drat/")
+```
+
+Or, to get this package from github:
+
+```r
+# install.packages('remotes')
+remotes::install_github("R-OneMKL/oneMKL")
+remotes::install_github("R-OneMKL/oneMKLUtil") # install oneMKLUtil to resolve `solve` issue
 ```
 
 ### Speed-Up Performance for the Matrix Multiplication
