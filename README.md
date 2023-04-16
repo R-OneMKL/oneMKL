@@ -16,10 +16,10 @@ You can install this package through our `drat` repository:
 ```r
 # for windows 
 install.packages(c("oneMKL"), repos="https://R-OneMKL.github.io/drat", type="source")
-install.packages(c("oneMKLUtil"), repos="https://R-OneMKL.github.io/drat")
+install.packages(c("oneMKL.MatrixCal"), repos="https://R-OneMKL.github.io/drat")
 
 # for Linux
-install.packages(c("oneMKL", "oneMKLUtil"), repos="https://R-OneMKL.github.io/drat")
+install.packages(c("oneMKL", "oneMKL.MatrixCal"), repos="https://R-OneMKL.github.io/drat")
 ```
 
 Or, to get this package from github:
@@ -27,7 +27,7 @@ Or, to get this package from github:
 ```r
 # install.packages('remotes')
 remotes::install_github("R-OneMKL/oneMKL")
-remotes::install_github("R-OneMKL/oneMKLUtil") # install oneMKLUtil to resolve `solve` issue
+remotes::install_github("R-OneMKL/oneMKL.MatrixCal") # install oneMKL.MatrixCal to resolve `solve` issue
 ```
 
 ### Speed-Up Performance for the Matrix Multiplication
@@ -71,7 +71,7 @@ install.packages(filename, repos = NULL)
 
 1. `solve` in vanilla R will be broken for solving inverse matrices (large size) after loading MKL in UNIX system.
    MKL uses INT64 ipiv in `dgesv`, but R uses INT32. Hence, it causes the issue.
-   This issue could be reolved by `library(oneMKLUtil)`, we replaced `base::solve` with `fMatSolve` by employing `rlang` to avoid the incorrect results.
+   This issue could be reolved by `library(oneMKL.MatrixCal)`, we replaced `base::solve` with `fMatSolve` by employing `rlang` to avoid the incorrect results.
 
 ### License
 
