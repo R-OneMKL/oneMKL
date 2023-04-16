@@ -3,6 +3,11 @@ Type: Package
 Title: Link MKL Library with R
 Version: 0.1.2022
 Authors@R: c(
+    person(given = "Ching-Chuan",
+           family = "Chen",
+           role = c("aut", "cre"),
+           email = "zw12356@gmail.com",
+           comment = c(ORCID = '0009-0007-8273-3206')),
     person(given = "Pei-Shan",
            family = "Yen", 
            email = "peishan0824@gmail.com",
@@ -12,21 +17,20 @@ Authors@R: c(
            family = "Kuo",
            email = "phxiranter@gmail.com",
            role = c("aut"),
-           comment = c(ORCID = '0000-0002-6096-5184')),
-    person(given = "Ching-Chuan",
-           family = "Chen",
-           role = c("aut", "cre"),
-           email = "zw12356@gmail.com",
-           comment = c(ORCID = '0009-0007-8273-3206'))
+           comment = c(ORCID = '0000-0002-6096-5184'))
     )
 Author: 
+  Ching-Chuan Chen [aut, cre] (<https://orcid.org/0009-0007-8273-3206>),
   Pei-Shan Yen [aut] (<https://orcid.org/0000-0001-7386-0552>), 
   Chia-Wei Kuo [aut] (<https://orcid.org/0000-0002-6096-5184>), 
-  Ching-Chuan Chen [aut, cre] (<https://orcid.org/0009-0007-8273-3206>)
 Maintainer: Ching-Chuan Chen <zw12356@gmail.com>
-Description: The `oneMKL` package aims to provide header files and dynamic library files to R for usage.
-  We imported files from packages on Anaconda,  `mkl`, `mkl-include` and `intel-openmp`.
-  `oneMKL` supports windows and Linux only because the availablity of Anaconda `mkl` package. 
+Description: The `oneMKL` package establishes the connection between the R environment and 
+  Intel® oneAPI Math Kernel Library (oneMKL) for the `oneMKL.MatrixCal` package. To enable 
+  the integration, the `oneMKL` package provides necessary header files and dynamic library 
+  files to R, and imported files from the packages `mkl`, `mkl-include`, and `intel-openmp` 
+  within `Anaconda`. It is important to note that the `oneMKL` and ` oneMKL.MatrixCal` 
+  packages are only compatible with Windows and Linux operating systems due to the limitations 
+  of Intel oneMKL. 
 Depends: R (>= 4.2.0)
 Imports: utils, Rcpp (>= 1.0.0), roxygen2, pkgKitten (>= 0.1.2)
 Suggests: RUnit, RcppArmadillo
