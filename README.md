@@ -6,12 +6,11 @@ We imported files from packages on Anaconda,  `mkl`, `mkl-include` and `intel-op
 
 ### Installation
 
-To build the package from source, Windows users will need to have [Rtools](http://cran.csie.ntu.edu.tw/bin/windows/Rtools/) installed.
+1. To build the package from source, Windows users will need to have [Rtools](http://cran.csie.ntu.edu.tw/bin/windows/Rtools/) installed.
 
-Because the availability of Anaconda `mkl` package, we only support Windows and Linux.
-Also, note that this package does not support Mac because Intel MKL does not support Mac M1/M2 CPUs.
+2.  "oneMKL.MatrixCal" package is only available for Windows and Linux operating systems due to the availability of the Anaconda mkl package on these platforms. It is important to note that this package is not supported on Mac due to the lack of support from Intel MKL for Mac M1/M2 CPUs. 
 
-You can install this package through our `drat` repository:
+3. You can install this package through our `drat` repository:
 
 ```r
 # for windows 
