@@ -1,6 +1,6 @@
 Package: oneMKL
 Type: Package
-Title: Link MKL Library with R
+Title: Link Intel oneMKL Library with R
 Version: 0.1.2022
 Authors@R: c(
     person(given = "Ching-Chuan",
