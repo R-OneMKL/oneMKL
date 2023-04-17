@@ -32,8 +32,9 @@ Description: The `oneMKL` package establishes the connection between the R envir
   packages are only compatible with Windows and Linux operating systems due to the limitations 
   of Intel `oneMKL`. 
 Depends: R (>= 4.2.0)
-Imports: utils, Rcpp (>= 1.0.0), roxygen2, pkgKitten (>= 0.1.2)
-Suggests: RUnit, RcppArmadillo
+Imports: utils, Rcpp (>= 1.0.0), RcppArmadillo, roxygen2, pkgKitten (>= 0.1.2)
+LinkingTo: Rcpp, RcppArmadillo
+Suggests: RUnit
 License: GPL-3
 URL: https://github.com/R-OneMKL/oneMKL
 BugReports: https://github.com/R-OneMKL/oneMKL/issues

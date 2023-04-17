@@ -73,7 +73,7 @@ inlineCxxPlugin <- function() {
   getSettings <- Rcpp.plugin.maker(
     include.before = "#include <oneMKL.h>",
     libs = "$(FLIBS)",
-    package = c("oneMKL", "Rcpp")
+    package = c("oneMKL", "Rcpp", "RcppArmadillo")
   )
   settings <- getSettings()
   settings$env$PKG_CXXFLAGS <- paste(settings$env$PKG_CXXFLAGS, mklCxxFlags())

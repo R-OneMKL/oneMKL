@@ -18,19 +18,6 @@
 #ifndef onemkl__onemkl__h
 #define onemkl__onemkl__h
 
-// For RcppArmadillo
-#ifndef MKL_Complex16
-#include <complex>
-typedef std::complex<double> MKL_Complex16;
-#define MKL_Complex16 std::complex<double>
-#endif
-
-#ifndef MKL_Complex8
-#include <complex>
-typedef std::complex<float> MKL_Complex8;
-#define MKL_Complex8 std::complex<float>
-#endif
-
 // include MKL headers
 #include <mkl.h>
 #include <mkl_types.h>
@@ -41,5 +28,8 @@ typedef std::complex<float> MKL_Complex8;
 #define ARMA_LAPACK_NOEXCEPT
 #define ARMA_DONT_USE_FORTRAN_HIDDEN_ARGS
 #define ARMA_FORTRAN_CHARLEN_TYPE blas_int
+
+// include RcppArmadillo first
+#include <RcppArmadillo.h>
 
 #endif

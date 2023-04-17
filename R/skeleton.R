@@ -70,14 +70,15 @@ onemkl.package.skeleton <- function(
   if (file.exists(DESCRIPTION)) {
     x <- cbind(
       read.dcf(DESCRIPTION),
-      "Imports" = sprintf("Rcpp (>= %s), oneMKL",
+      "Imports" = sprintf("Rcpp (>= %s), RcppArmadillo (>= %s), oneMKL (>= %s)",
+                          packageDescription("RcppArmadillo")[["Version"]],
                           packageDescription("Rcpp")[["Version"]],
                           packageDescription("oneMKL")[["Version"]]),
-      "LinkingTo" = "Rcpp, oneMKL"
+      "LinkingTo" = "Rcpp, RcppArmadillo, oneMKL"
     )
     write.dcf(x, file = DESCRIPTION)
-    message(" >> added Imports: Rcpp, oneMKL")
-    message(" >> added LinkingTo: Rcpp, oneMKL")
+    message(" >> added Imports: Rcpp, RcppArmadillo, oneMKL")
+    message(" >> added LinkingTo: Rcpp, RcppArmadillo, oneMKL")
   }
 
   ## Add package document
