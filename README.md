@@ -1,6 +1,6 @@
 ## oneMKL
 
-The `oneMKL` package establishes the connection between the R environment and Intel® oneAPI Math Kernel Library (oneMKL) for the `oneMKL.MatrixCal` package. To enable the integration, the `oneMKL` package provides necessary header files and dynamic library files to R, and imported files from the packages `mkl`, `mkl-include`, and `intel-openmp` within `Anaconda`. It is important to note that the `oneMKL` and ` oneMKL.MatrixCal` packages are only compatible with Windows and Linux operating systems due to the limitations of Intel oneMKL. 
+The `oneMKL` package establishes the connection between the R environment and **Intel oneAPI Math Kernel Library** (`oneMKL`) for the `oneMKL.MatrixCal` package. To enable the integration, the `oneMKL` package provides necessary header files and dynamic library files to R, and imported files from the packages `mkl`, `mkl-include`, and `intel-openmp` within `Anaconda`. It is important to note that the `oneMKL` and ` oneMKL.MatrixCal` packages are only compatible with Windows and Linux operating systems due to the limitations of Intel `oneMKL`. 
 
 ### Installation
 
@@ -9,7 +9,7 @@ The `oneMKL` package establishes the connection between the R environment and In
 2. You can install this package through our `drat` repository:
 
 ```r
-# for windows 
+# for windows (Because we don't provide the binary package of oneMKL.)
 install.packages(c("oneMKL"), repos="https://R-OneMKL.github.io/drat", type="source")
 install.packages(c("oneMKL.MatrixCal"), repos="https://R-OneMKL.github.io/drat")
 
