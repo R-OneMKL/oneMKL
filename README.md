@@ -10,11 +10,11 @@ The `oneMKL` package establishes the connection between the R environment and **
 
 ```r
 # for windows (Because we don't provide the binary package of oneMKL.)
-install.packages(c("oneMKL"), repos="https://R-OneMKL.github.io/drat", type="source")
-install.packages(c("oneMKL.MatrixCal"), repos="https://R-OneMKL.github.io/drat")
+install.packages(c("oneMKL"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"), type="source")
+install.packages(c("oneMKL.MatrixCal"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"))
 
 # for Linux
-install.packages(c("oneMKL", "oneMKL.MatrixCal"), repos="https://R-OneMKL.github.io/drat")
+install.packages(c("oneMKL", "oneMKL.MatrixCal"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"))
 ```
 
 Or, to get this package from github:
