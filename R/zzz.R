@@ -41,10 +41,7 @@ loadMklLibrary <- function(name) {
   dyn.load(path, local = FALSE, now = TRUE)
 }
 
-#' @importFrom RcppArmadillo armadillo_version
 .onLoad <- function(libname, pkgname) {
-  packageStartupMessage(sprintf("Import RcppArmdillo with Armadillo version %s", paste(armadillo_version(FALSE), collapse = ".")))
-
   is_windows <- Sys.info()[["sysname"]] == "Windows"
 
   # load dll files
