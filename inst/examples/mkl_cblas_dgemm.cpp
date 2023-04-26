@@ -17,11 +17,9 @@
 
 #include <oneMKL.h>
 #include <mkl_cblas.h>
-#include <RcppArmadillo.h>
 #undef ARMA_USE_WRAPPER
 
 // [[Rcpp::depends(oneMKL)]]
-// [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
 arma::mat mkl_cblas_dgemm(const arma::mat & x, const arma::mat & y) {
   double alpha = 1, beta = 0.0;

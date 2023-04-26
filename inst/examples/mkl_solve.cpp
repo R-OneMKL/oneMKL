@@ -1,9 +1,7 @@
 #include <oneMKL.h>
 #include <mkl_lapacke.h>
-#include <RcppArmadillo.h>
 
 // [[Rcpp::depends(oneMKL)]]
-// [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
 arma::mat mkl_real_solve(const arma::mat & x, const arma::mat & b) {
   arma::mat copy_x(x.memptr(), x.n_rows, x.n_cols);
