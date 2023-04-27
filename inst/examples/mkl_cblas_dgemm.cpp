@@ -17,17 +17,16 @@
 
 #include <oneMKL.h>
 #include <mkl_cblas.h>
-#undef ARMA_USE_WRAPPER
 
 // [[Rcpp::depends(oneMKL)]]
 // [[Rcpp::export]]
-arma::mat mkl_cblas_dgemm(const arma::mat & x, const arma::mat & y) {
+Rcpp::NumericMatrix mkl_cblas_dgemm(Rcpp::NumericMatrix x, Rcpp::NumericMatrix y) {
   double alpha = 1, beta = 0.0;
-  arma::mat output(x.n_rows, y.n_cols, arma::fill::zeros);
+  Rcpp::NumericMatrix output(x.nrow(), y.ncol());
   cblas_dgemm(
     CblasColMajor, CblasNoTrans, CblasNoTrans,
-    x.n_rows, y.n_cols, x.n_cols, alpha, x.memptr(), x.n_rows, y.memptr(), y.n_rows,
-    beta, output.memptr(), x.n_rows
+    x.nrow(), y.ncol(), x.ncol(), alpha, x.begin(), x.nrow(), y.begin(), y.nrow(),
+    beta, output.begin(), x.nrow()
   );
   return output;
 }

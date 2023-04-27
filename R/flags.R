@@ -42,7 +42,7 @@ NULL
 #' @export
 mklCxxFlags <- function() {
   pkgIncDir <- system.file("include", package = "oneMKL")
-  paste0("-I'", pkgIncDir, "' -I'", pkgIncDir, "/mkl'")
+  paste0("-I'", pkgIncDir, "' -I'", pkgIncDir, "/mkl'", " -Wno-ignored-attributes")
 }
 
 #' @name flags
@@ -73,7 +73,7 @@ inlineCxxPlugin <- function() {
   getSettings <- Rcpp.plugin.maker(
     include.before = "#include <oneMKL.h>",
     libs = "$(FLIBS)",
-    package = c("oneMKL", "Rcpp", "RcppArmadillo")
+    package = c("oneMKL", "Rcpp", "RcppEigen")
   )
   settings <- getSettings()
   settings$env$PKG_CXXFLAGS <- paste(settings$env$PKG_CXXFLAGS, mklCxxFlags())

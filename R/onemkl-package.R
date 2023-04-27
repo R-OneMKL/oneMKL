@@ -27,5 +27,5 @@
 #'
 #' @docType package
 #' @name onemkl-package
-#' @importFrom RcppArmadillo armadillo_version
+#' @importFrom RcppEigen RcppEigen.package.skeleton
 NULL

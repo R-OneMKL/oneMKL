@@ -32,7 +32,7 @@ Description: The "oneMKL" package establishes the connection between the R envir
   "oneMKL.MatrixCal" packages are only compatible with Windows and Linux 
   operating systems due to Intel "oneMKL" limitations. 
 Depends: R (>= 4.2.0)
-Imports: utils, Rcpp (>= 1.0.0), RcppArmadillo
+Imports: utils, Rcpp (>= 1.0.0), RcppEigen
 Suggests: roxygen2, pkgKitten (>= 0.1.2), RUnit
 License: GPL-3
 URL: https://github.com/R-OneMKL/oneMKL
