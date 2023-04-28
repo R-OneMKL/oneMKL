@@ -17,16 +17,17 @@ onemklLibFlags()
 onemklIncFlags()
 }
 \description{
-Output the compiler or linker flags required to build against `oneMKL`.
-These functions are typically called from `Makevars` as follows:
-```
+Output the compiler or linker flags required to build with `oneMKL`.
+}
+\details{
+These functions are typically called from `Makevars`:
+\preformatted{
 PKG_CXXFLAGS += $(shell "${R_HOME}/bin/Rscript" -e "oneMKL::onemklIncFlags()")
 PKG_LIBS += $(shell "${R_HOME}/bin/Rscript" -e "oneMKL::onemklLibFlags()")
-```
+}
 \R packages using `oneMKL` should also add the following to their `NAMESPACE` file:
-```
+\preformatted{
 importFrom(oneMKL, onemklIncFlags)
 importFrom(oneMKL, onemklLibFlags)
-```
-This is necessary to ensure that \pkg{oneMKL} is loaded and available.
+}
 }
