@@ -9,12 +9,7 @@ The `oneMKL` package establishes the connection between the R environment and **
 2. You can install this package through our `drat` repository:
 
 ```r
-# for windows (Because we don't provide the binary package of oneMKL.)
-install.packages(c("oneMKL"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"), type="source")
-install.packages(c("oneMKL.MatrixCal"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"))
-
-# for Linux
-install.packages(c("oneMKL", "oneMKL.MatrixCal"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"))
+install.packages(c("oneMKL", "oneMKL.MatrixCal"), repos=c("https://cloud.r-project.org/", "https://R-OneMKL.github.io/drat"), type = "source")
 ```
 
 Or, to get this package from github:
@@ -52,14 +47,6 @@ oneMKLPath=$(Rscript -e 'cat(paste0(sub("Rcpp/libs", "oneMKL/", system.file("lib
 tee -a ~/.Renviron << EOF
 LD_LIBRARY_PATH=${oneMKLPath}:\${LD_LIBRARY_PATH}
 EOF
-```
-
-### Get Ubuntu binary package
-
-```
-filename <- "oneMKL_0.1.2022_R_x86_64-pc-linux-gnu.tar.gz"
-download.file(paste0("https://r-onemkl.github.io/drat/bin/linux/ubuntu/focal/", filename), filename)
-install.packages(filename, repos = NULL)
 ```
 
 ### License
