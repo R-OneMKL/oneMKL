@@ -53,4 +53,4 @@ EOF
 
 The `oneMKL` package is made available under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
 
-The Intel MKL Library is licensed under the (Intel Simplified Software License)[https://www.intel.com/en-us/license/intel-simplified-software-license], as described at (Intel MKL License FAQ)[https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html].
+The Intel MKL Library is licensed under the (Intel Simplified Software License)[https://www.intel.com/content/www/us/en/developer/articles/license/end-user-license-agreement.html], as described at (Intel MKL License FAQ)[https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html].
