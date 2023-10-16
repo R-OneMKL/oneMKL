@@ -31,7 +31,7 @@ Description: The "oneMKL" package establishes the connection between the R envir
   "mkl", "mkl-include", and "intel-openmp" from "Anaconda". The "oneMKL" and 
   "oneMKL.MatrixCal" packages are only compatible with Windows and Linux 
   operating systems due to Intel "oneMKL" limitations. 
-Depends: R (>= 4.2.0)
+Depends: R
 Imports: utils, Rcpp (>= 1.0.0), RcppEigen
 Suggests: roxygen2, pkgKitten (>= 0.1.2), RUnit
 License: Intel ISSL + GPL-3
