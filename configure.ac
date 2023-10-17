@@ -15,7 +15,7 @@ fi
 ###### DOWNLOAD INTEL MKL FROM ANACONDA ######################################
 
 AC_MSG_CHECKING([Download Intel MKL from Anaconda])
-   "${R_HOME}/bin/Rscript" --vanilla --slave -e "source(\"R/install.R\"); installMKL(\"2023\")"
+   "${R_HOME}/bin/Rscript" --vanilla --slave -e "source(\"R/install.R\"); installMKL(\"2022\")"
 
 AC_OUTPUT
 
