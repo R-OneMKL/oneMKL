@@ -49,6 +49,8 @@ LD_LIBRARY_PATH=${oneMKLPath}:\${LD_LIBRARY_PATH}
 EOF
 ```
 
+Note that this works for Ubuntu, but not CentOS, otehr systems are not tested.
+
 ### License
 
 The `oneMKL` package is made available under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
