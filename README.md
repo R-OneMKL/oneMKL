@@ -34,22 +34,30 @@ Unit: milliseconds
 # This results are run on R-4.2.3 (Windows 11) with AMD 2990WX.
 ```
 
-### Hacking for UNIX system
+### Hacking for Ubuntu
 
 Since MKL `.so` files are unable to load in R with `dyn.load`, you will need to modify `.Renviron` to add the path to `LD_LIBRARY_PATH` with the following script.
 
 ```shell
-# install Rcpp
-Rscript -e "install.packages('Rcpp', repos = 'https://cloud.r-project.org')"
-# locate package installation path
-oneMKLPath=$(Rscript -e 'cat(paste0(sub("Rcpp/libs", "oneMKL/", system.file("libs", package = "Rcpp")), "lib/"))')
+# install oneMKL, then run below shell script
+oneMKLPath=$(Rscript -e 'cat(system.file("lib", package = "oneMKL"))')
 # append oneMKL package location to .Renviron
 tee -a ~/.Renviron << EOF
 LD_LIBRARY_PATH=${oneMKLPath}:\${LD_LIBRARY_PATH}
 EOF
 ```
 
-Note that this works for Ubuntu, but not CentOS, otehr systems are not tested.
+### Hacking for CentOS and RedHat
+
+`dyn.load` and `.Renviron` are not working for CentOS and RedHat, you need `LD_PRELOAD` to do the trick.
+
+```shell
+# install oneMKL, then run below shell script
+oneMKLPath=$(Rscript -e 'cat(system.file("lib", package = "oneMKL"))')
+# Use below command to start R or Rscript
+LD_PRELOAD="${oneMKLPath}/libmkl_core.so:${oneMKLPath}/libmkl_intel_thread.so:${oneMKLPath}/libmkl_intel_lp64.so" R
+LD_PRELOAD="${oneMKLPath}/libmkl_core.so:${oneMKLPath}/libmkl_intel_thread.so:${oneMKLPath}/libmkl_intel_lp64.so" Rscript
+```
 
 ### License
 
